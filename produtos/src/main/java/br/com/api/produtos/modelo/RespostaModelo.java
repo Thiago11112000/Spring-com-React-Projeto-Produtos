@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class RespostaModelo {
-    private String messagem;
+    private String mensagem;
 }

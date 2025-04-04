@@ -24,10 +24,10 @@ public class ProdutoServico {
     public ResponseEntity<?> cadastrarAlterar(ProdutoModelo pm, String acao) {
         RespostaModelo rm = new RespostaModelo();
         if (pm.getNome().equals("")) {
-            rm.setMessagem("O nome do produto é obrigatório!");
+            rm.setMensagem("O nome do produto é obrigatório!");
             return new ResponseEntity<RespostaModelo>(rm, HttpStatus.BAD_REQUEST);
         } else if (pm.getMarca().equals("")) {
-            rm.setMessagem("O nome da marca é obrigatório!");
+            rm.setMensagem("O nome da marca é obrigatório!");
             return new ResponseEntity<RespostaModelo>(rm, HttpStatus.BAD_REQUEST);
         } else {
             if (acao.equals("cadastrar")) {
@@ -37,4 +37,14 @@ public class ProdutoServico {
             }
         }
     }
+    // Método para remover produtos
+
+    public ResponseEntity<RespostaModelo> remover(Long codigo) {
+        RespostaModelo rm = new RespostaModelo();
+        pr.deleteById(codigo);
+
+        rm.setMensagem("O produto foi removido com sucesso");
+        return new ResponseEntity<RespostaModelo>(rm, HttpStatus.OK);
+    }
+
 }
