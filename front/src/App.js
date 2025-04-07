@@ -4,10 +4,16 @@ import Tabela from './Tabela';
 import { useState, useEffect } from 'react';
 
 function App() {
+  // Objeto Produto
+  const  produto = {
+    codigo: 0,
+    nome: '',
+    marca: ''
+  }
   // useState
   const [btnCadastrar, setCadastrar] = useState(true);
   const [produtos, setProdutos] = useState([]);
-
+  const [objProduto, setObjtProduto] = useState(produto)
  // useEffect
   useEffect(() => {
     fetch('http://localhost:8080/listar')
@@ -18,9 +24,9 @@ function App() {
   //retorno
  return (
     <div>
-      <p>{JSON.stringify(produtos)}</p>
+      <p>{JSON.stringify(objProduto)} </p>
      <Formulario  botao={btnCadastrar} />
-    <Tabela />
+    <Tabela vetor={produtos} />
     </div>
   );
 }
