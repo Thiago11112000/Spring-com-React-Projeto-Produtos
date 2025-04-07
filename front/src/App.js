@@ -3,7 +3,7 @@ import Formulario from './Formulario';
 import Tabela from './Tabela';
 function App() {
   return (
-    <div className="App">
+    <div>
      <Formulario />
     <Tabela />
     </div>
