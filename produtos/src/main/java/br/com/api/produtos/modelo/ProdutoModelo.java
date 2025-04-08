@@ -13,4 +13,6 @@ public class ProdutoModelo {
     private Long codigo;
     private String nome;
     private String marca;
+
+
 }
