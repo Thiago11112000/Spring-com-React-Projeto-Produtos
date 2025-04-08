@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 function App() {
   // Objeto Produto
   const produto = {
+    codigo : '',
     nome: '',
     marca: ''
   }
@@ -49,6 +50,42 @@ function App() {
     })
   }
 
+
+    // Remover Produto
+    const remover = () => {
+      fetch("http://localhost:8080/remover/" + objProduto.codigo, {
+        method: 'DELETE',
+        body: JSON.stringify(objProduto),
+        headers:{
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+      .then(retorno => retorno.json())
+      .then(retorno_convertido => {
+        alert(retorno_convertido.mensagem);
+
+        //Cópia do vetor de produtos
+
+        let vetorTemp = [...produtos];
+
+        //indice
+
+        let indice = vetorTemp.findIndex((p) =>{
+          return p.codigo === objProduto.codigo;
+        });
+
+        //remover produto do vetorTemp
+        vetorTemp.splice(indice, 1);
+
+        //atualizar o vetor de produtos
+        setProdutos(vetorTemp);
+
+       //limparFormulario();
+       limparFormulario();
+      })
+    }
+
   // limpar formulário 
   const limparFormulario = () =>{
     setObjtProduto(produto);
@@ -63,7 +100,7 @@ function App() {
   //retorno
   return (
     <div>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparFormulario}/>
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparFormulario} remover={remover}/>
       <Tabela vetor={produtos} selecionar= {selecionarProduto} />
     </div>
   );
