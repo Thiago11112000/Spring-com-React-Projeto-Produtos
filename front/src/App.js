@@ -11,7 +11,7 @@ function App() {
   }
 
   // useState
-  const [btnCadastrar, setCadastrar] = useState(true);
+  const [btnCadastrar, setBtnCadastrar] = useState(true);
   const [produtos, setProdutos] = useState([]);
   const [objProduto, setObjtProduto] = useState(produto)
 
@@ -53,11 +53,17 @@ function App() {
   const limparFormulario = () =>{
     setObjtProduto(produto);
   }
+  // selecionar produto
+ const selecionarProduto = (indice) =>{
+   setObjtProduto(produtos[indice]);
+   setBtnCadastrar(false);
+ }
+
   //retorno
   return (
     <div>
       <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto}/>
-      <Tabela vetor={produtos} />
+      <Tabela vetor={produtos} selecionar= {selecionarProduto} />
     </div>
   );
 }
