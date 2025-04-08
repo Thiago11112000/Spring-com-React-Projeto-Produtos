@@ -86,6 +86,41 @@ function App() {
       })
     }
 
+    const alterar = () => {
+      fetch("http://localhost:8080/alterar", {
+        method: 'PUT',
+        body: JSON.stringify(objProduto),
+        headers:{
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+      .then(retorno => retorno.json())
+      .then(retorno_convertido => {
+        if (retorno_convertido.mensagem !== undefined) {
+          alert(retorno_convertido.mensagem);
+        } else {
+          alert("Produto Alterado com sucesso!");
+           //Cópia do vetor de produtos
+
+        let vetorTemp = [...produtos];
+
+        //indice
+
+        let indice = vetorTemp.findIndex((p) =>{
+          return p.codigo === objProduto.codigo;
+        });
+
+        //alterar produto do vetorTemp
+        vetorTemp[indice] = objProduto;
+
+        //atualizar o vetor de produtos
+        setProdutos(vetorTemp);
+          limparFormulario();
+        }
+      })
+    }
+  
   // limpar formulário 
   const limparFormulario = () =>{
     setObjtProduto(produto);
@@ -100,7 +135,7 @@ function App() {
   //retorno
   return (
     <div>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparFormulario} remover={remover}/>
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparFormulario} remover={remover} alterar={alterar}/>
       <Tabela vetor={produtos} selecionar= {selecionarProduto} />
     </div>
   );
