@@ -40,18 +40,23 @@ function App() {
     .then(retorno => retorno.json())
     .then(retorno_convertido => {
       if (retorno_convertido.mensagem !== undefined) {
-        alert(retorno_convertido.mensagem); // Corrigido para usar 'retorno_convertido'
+        alert(retorno_convertido.mensagem);
       } else {
         setProdutos([...produtos, retorno_convertido]);
         alert("Produto Cadastrado com sucesso!");
+        limparFormulario();
       }
     })
   }
 
+  // limpar formulário 
+  const limparFormulario = () =>{
+    setObjtProduto(produto);
+  }
   //retorno
   return (
     <div>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} />
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto}/>
       <Tabela vetor={produtos} />
     </div>
   );
